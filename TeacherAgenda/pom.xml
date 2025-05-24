@@ -16,6 +16,8 @@
         <spring.boot.version>2.6.3</spring.boot.version> <!-- Use a compatible Spring Boot version -->
         <controlsfx.version>11.1.2</controlsfx.version>
         <jgraphx.version>4.2.2</jgraphx.version> <!-- JGraphX version -->
+        <ical4j.version>3.2.4</ical4j.version> <!-- iCal4j version -->
+        <slf4j.version>1.7.32</slf4j.version> <!-- SLF4J version for iCal4j logging -->
     </properties>
 
     <dependencyManagement>
@@ -52,6 +54,21 @@
             <artifactId>jgraphx</artifactId>
             <version>${jgraphx.version}</version>
         </dependency>
+
+        <!-- iCalendar Support -->
+        <dependency>
+            <groupId>org.mnode.ical4j</groupId>
+            <artifactId>ical4j</artifactId>
+            <version>${ical4j.version}</version>
+        </dependency>
+        <!-- iCal4j requires an SLF4J logging implementation -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope> <!-- Or use another binding like slf4j-log4j12 if Log4j is preferred -->
+        </dependency>
+
 
         <!-- Spring Boot -->
         <dependency>

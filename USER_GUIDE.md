@@ -71,6 +71,24 @@ teacher.agenda.notification.email=your_teacher_email_address@example.com
     2.  Select the event from the "Events for Selected Date:" list.
     3.  Click "**Delete Event**". A confirmation dialog will appear.
 *   **Clearing the Form:** Click "**Clear**" to reset the form fields. If a date is selected on the calendar, the date fields will remain pre-filled for that date.
+*   **Exporting Events to iCalendar (.ics):**
+    *   **Purpose:** To share your events with other calendar applications (like Google Calendar, Outlook Calendar, Apple Calendar) or to create a backup of your event schedule.
+    *   **How to use:**
+        1.  In the Calendar tab, click the "**Export All Events (.ics)**" button located in the top toolbar.
+        2.  A file dialog will appear, allowing you to choose a location and name for your export file (defaulting to `TeacherAgendaEvents.ics`).
+        3.  Click "Save".
+    *   **Result:** All events currently stored in TeacherAgenda will be exported into the selected `.ics` file.
+*   **Importing Events from iCalendar (.ics):**
+    *   **Purpose:** To add events from other calendar applications or from `.ics` files into TeacherAgenda.
+    *   **How to use:**
+        1.  In the Calendar tab, click the "**Import Events (.ics)**" button located in the top toolbar.
+        2.  A file dialog will appear. Select the `.ics` or `.ical` file you wish to import.
+        3.  Click "Open".
+    *   **Result:**
+        *   Events from the file will be parsed and added to your TeacherAgenda calendar.
+        *   The application will show a confirmation message indicating how many events were successfully imported and saved.
+        *   **Duplicate Events:** Please note that the current import process does not check for duplicate events. If you import a file containing events already in your TeacherAgenda, they will be imported again, creating duplicates.
+        *   **Timezones:** Event times from the `.ics` file are generally interpreted and converted to your system's default timezone.
 
 ### Tasks Tab
 *   **Viewing Tasks:** Tasks are displayed in a table with columns: Description, Due Date, Priority, Completed (checkbox), Creation Date. The table is sorted by Priority (High first), then by your custom Sort Order, then by Due Date.

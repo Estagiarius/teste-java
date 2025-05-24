@@ -88,6 +88,8 @@ public class MainWindowController {
     @FXML private MonthView<Event> calendarMonthView; 
     @FXML private ListView<Event> eventListViewForDate; 
     @FXML private Button todayButton; 
+    @FXML private Button importEventsButton; // Added for import
+    @FXML private Button exportEventsButton; 
     @FXML private TextField eventTitleField;
     @FXML private DatePicker eventStartDatePicker;
     @FXML private TextField eventStartTimeField;
@@ -217,6 +219,7 @@ public class MainWindowController {
     private final NotificationService notificationService;
     private final TeachingMaterialService materialService;
     private final QuickNoteService quickNoteService;
+    private final ICalService iCalService; // Added for export
 
     //<editor-fold desc="State Variables - Calendar">
     private YearMonth currentDisplayedYearMonth; 
@@ -261,7 +264,7 @@ public class MainWindowController {
     public MainWindowController(EventService eventService, TaskService taskService,
                                 LocationService locationService, ActivityService activityService,
                                 NotificationService notificationService, TeachingMaterialService materialService,
-                                QuickNoteService quickNoteService) {
+                                QuickNoteService quickNoteService, ICalService iCalService) { // Added iCalService
         this.eventService = eventService;
         this.taskService = taskService;
         this.locationService = locationService;
@@ -269,6 +272,7 @@ public class MainWindowController {
         this.notificationService = notificationService;
         this.materialService = materialService;
         this.quickNoteService = quickNoteService;
+        this.iCalService = iCalService; // Added
     }
 
     @FXML
@@ -459,6 +463,77 @@ public class MainWindowController {
     private void populateEventForm(Event event) { eventTitleField.setText(event.getTitle()); eventStartDatePicker.setValue(event.getStartTime().toLocalDate()); eventStartTimeField.setText(event.getStartTime().toLocalTime().format(TIME_FORMATTER)); eventEndDatePicker.setValue(event.getEndTime().toLocalDate()); eventEndTimeField.setText(event.getEndTime().toLocalTime().format(TIME_FORMATTER)); if (StringUtils.hasText(event.getLocation())) { allLocationsObservable.stream().filter(loc -> loc.getName().equalsIgnoreCase(event.getLocation())).findFirst().ifPresent(eventLocationComboBox::setValue); } else { eventLocationComboBox.getSelectionModel().clearSelection(); } eventDescriptionArea.setText(event.getDescription()); updateEventButton.setDisable(false); deleteEventButton.setDisable(false); eventTitleField.requestFocus(); }
     private void clearEventFormInternal() { eventTitleField.clear(); eventStartTimeField.clear(); eventEndTimeField.clear(); eventLocationComboBox.getSelectionModel().clearSelection(); eventDescriptionArea.clear(); updateEventButton.setDisable(true); deleteEventButton.setDisable(true); }
     private class EventDayCell extends DateCell { @Override public void updateItem(LocalDate date, boolean empty) { super.updateItem(date, empty); this.getStyleClass().remove("event-day"); this.setTooltip(null); if (empty || date == null) { setText(null); setGraphic(null); } else { if (datesWithEvents.contains(date)) { this.getStyleClass().add("event-day"); long eventCount = eventService.findEventsByDay(date).size(); if (eventCount > 0) { setTooltip(new Tooltip(eventCount + (eventCount == 1 ? " event" : " events"))); } } } } }
+
+    @FXML
+    private void handleExportEventsAction() {
+        List<com.teacheragenda.model.Event> allEvents = eventService.getAllEvents(); 
+        if (allEvents.isEmpty()) {
+            showInformation("Export Events", "No events to export.");
+            return;
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Export Events to iCalendar File");
+        fileChooser.setInitialFileName("TeacherAgendaEvents.ics");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("iCalendar Files", "*.ics"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        Stage stage = getStage(); // Assumes getStage() can provide the current window
+        if (stage == null) {
+            showAlert("Error", "Could not determine the application window to show file dialog.");
+            return;
+        }
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            boolean success = iCalService.exportEventsToICS(allEvents, file.toPath());
+            if (success) {
+                showInformation("Export Successful", "Events successfully exported to:\n" + file.getAbsolutePath());
+            } else {
+                showAlert("Export Failed", "Could not export events. Check logs for details.");
+            }
+        }
+    }
+
+    @FXML
+    private void handleImportEventsAction() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Import Events from iCalendar File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("iCalendar Files", "*.ics", "*.ical"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        Stage stage = getStage();
+        if (stage == null) {
+            showAlert("Error", "Could not determine the application window to show file dialog.");
+            return;
+        }
+        File file = fileChooser.showOpenDialog(stage);
+
+        if (file != null) {
+            List<com.teacheragenda.model.Event> importedEvents = iCalService.importEventsFromICS(file.toPath());
+            if (importedEvents.isEmpty()) {
+                // This could be due to an empty file, parsing error (logged by service), or no valid VEVENTs found.
+                showInformation("Import Events", "No valid events found in the selected file, or an error occurred during parsing. Check logs for details.");
+            } else {
+                int successfullySavedCount = 0;
+                for (com.teacheragenda.model.Event eventToSave : importedEvents) {
+                    try {
+                        eventService.saveEvent(eventToSave); // Save each imported event
+                        successfullySavedCount++;
+                    } catch (Exception e) {
+                        // Log individual save error if necessary
+                        logger.error("Failed to save imported event: " + eventToSave.getTitle(), e);
+                    }
+                }
+                loadEventsForMonthView(); // Refresh the calendar view
+                showInformation("Import Successful", String.format("%d out of %d events successfully imported and saved.", successfullySavedCount, importedEvents.size()));
+            }
+        }
+    }
     //</editor-fold>
 
     //<editor-fold desc="Task Tab Logic">

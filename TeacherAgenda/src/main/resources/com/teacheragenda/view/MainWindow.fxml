@@ -25,6 +25,9 @@
                         <Label fx:id="currentMonthYearLabel" text="Month Year"/>
                         <Button fx:id="nextMonthButton" onAction="#handleNextMonth" text="Next Month &gt;"/>
                         <Button fx:id="todayButton" onAction="#handleToday" text="Today"/>
+                        <Separator orientation="VERTICAL" />
+                        <Button fx:id="importEventsButton" onAction="#handleImportEventsAction" text="Import Events (.ics)"/>
+                        <Button fx:id="exportEventsButton" onAction="#handleExportEventsAction" text="Export All Events (.ics)"/>
                     </HBox>
                 </top>
                 <center>
