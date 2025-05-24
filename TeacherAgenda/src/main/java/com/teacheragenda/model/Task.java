@@ -8,6 +8,9 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "task", indexes = { // Adding index for sorting
+    @Index(name = "idx_task_priority_sortorder_duedate", columnList = "priority, sortOrder, dueDate")
+})
 public class Task {
 
     @Id
@@ -19,8 +22,11 @@ public class Task {
 
     private LocalDate dueDate;
 
-    @Enumerated(EnumType.ORDINAL) // Store enum as integer (its ordinal value)
+    @Enumerated(EnumType.ORDINAL) // Stores LOW=0, MEDIUM=1, HIGH=2
     private Priority priority;
+
+    @Column(nullable = false) // Default to a value to avoid null issues in sorting
+    private Integer sortOrder = 0; // New field for fine-grained sorting within a priority
 
     private boolean completed = false;
 
@@ -32,7 +38,7 @@ public class Task {
 
     // Constructors
     public Task() {
-        this.creationDate = LocalDateTime.now(); // Auto-set on creation
+        this.creationDate = LocalDateTime.now();
     }
 
     public Task(String description, LocalDate dueDate, Priority priority) {
@@ -40,7 +46,13 @@ public class Task {
         this.dueDate = dueDate;
         this.priority = priority;
         this.completed = false;
-        this.creationDate = LocalDateTime.now(); // Auto-set on creation
+        this.creationDate = LocalDateTime.now();
+        // Initialize sortOrder based on priority by default, or some other logic
+        if (priority != null) {
+            this.sortOrder = priority.ordinal(); // Example default, can be refined
+        } else {
+            this.sortOrder = Priority.MEDIUM.ordinal(); // Default if no priority given
+        }
     }
 
     // Getters and Setters
@@ -76,6 +88,14 @@ public class Task {
         this.priority = priority;
     }
 
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
     public boolean isCompleted() {
         return completed;
     }
@@ -88,16 +108,11 @@ public class Task {
         return creationDate;
     }
 
-    // Setter for creationDate is typically not needed if auto-set
-    // public void setCreationDate(LocalDateTime creationDate) {
-    //     this.creationDate = creationDate;
-    // }
-
-    public Set<Activity> getActivitiesInternal() { // Renamed to avoid conflict if a direct getter 'getActivities' is desired
+    public Set<Activity> getActivitiesInternal() {
         return activities;
     }
 
-    public void setActivitiesInternal(Set<Activity> activities) { // Renamed
+    public void setActivitiesInternal(Set<Activity> activities) {
         this.activities = activities;
     }
 
@@ -122,6 +137,7 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", dueDate=" + dueDate +
                 ", priority=" + priority +
+                ", sortOrder=" + sortOrder +
                 ", completed=" + completed +
                 ", creationDate=" + creationDate +
                 '}';

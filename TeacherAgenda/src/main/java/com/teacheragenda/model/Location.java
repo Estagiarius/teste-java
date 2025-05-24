@@ -16,14 +16,20 @@ public class Location {
     private String address;
     private String description;
 
+    // New fields for coordinates
+    private Double latitude;
+    private Double longitude;
+
     // Constructors
     public Location() {
     }
 
-    public Location(String name, String address, String description) {
+    public Location(String name, String address, String description, Double latitude, Double longitude) {
         this.name = name;
         this.address = address;
         this.description = description;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     // Getters and Setters
@@ -59,13 +65,29 @@ public class Location {
         this.description = description;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
         return Objects.equals(id, location.id) &&
-               Objects.equals(name, location.name); // Names should be unique, so this is a good check
+               Objects.equals(name, location.name);
     }
 
     @Override
@@ -80,6 +102,8 @@ public class Location {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 '}';
     }
 }

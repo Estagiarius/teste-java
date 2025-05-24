@@ -16,17 +16,17 @@ public class Activity {
     @Column(nullable = false)
     private String name;
 
-    @Lob // For longer text
+    @Lob 
     private String description;
 
     private LocalDateTime scheduledTime;
     private Integer duration; // in minutes
 
-    @ManyToOne(fetch = FetchType.EAGER) // Eager fetch if you often need event details with activity
+    @ManyToOne(fetch = FetchType.EAGER) 
     @JoinColumn(name = "event_id")
     private Event relatedEvent;
 
-    @ManyToMany(fetch = FetchType.LAZY) // Lazy fetch as tasks might be numerous or not always needed
+    @ManyToMany(fetch = FetchType.LAZY) 
     @JoinTable(
         name = "activity_task",
         joinColumns = @JoinColumn(name = "activity_id"),
@@ -34,9 +34,15 @@ public class Activity {
     )
     private Set<Task> relatedTasks = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER) // Eager fetch if location is usually displayed
+    @ManyToOne(fetch = FetchType.EAGER) 
     @JoinColumn(name = "location_id")
     private Location assignedLocation;
+
+    @Lob // For storing XML data for the diagram
+    private String diagramXml;
+
+    @Lob // For storing pseudocode text
+    private String pseudocode;
 
     // Constructors
     public Activity() {
@@ -114,15 +120,31 @@ public class Activity {
         this.assignedLocation = assignedLocation;
     }
 
+    public String getDiagramXml() {
+        return diagramXml;
+    }
+
+    public void setDiagramXml(String diagramXml) {
+        this.diagramXml = diagramXml;
+    }
+
+    public String getPseudocode() {
+        return pseudocode;
+    }
+
+    public void setPseudocode(String pseudocode) {
+        this.pseudocode = pseudocode;
+    }
+
     // Helper methods for managing tasks
     public void addTask(Task task) {
         this.relatedTasks.add(task);
-        task.getActivitiesInternal().add(this); // Assuming Task has a bidirectional mapping
+        task.getActivitiesInternal().add(this); 
     }
 
     public void removeTask(Task task) {
         this.relatedTasks.remove(task);
-        task.getActivitiesInternal().remove(this); // Assuming Task has a bidirectional mapping
+        task.getActivitiesInternal().remove(this); 
     }
 
 
@@ -149,6 +171,8 @@ public class Activity {
                 ", eventId=" + (relatedEvent != null ? relatedEvent.getId() : "null") +
                 ", locationId=" + (assignedLocation != null ? assignedLocation.getId() : "null") +
                 ", taskCount=" + relatedTasks.size() +
+                ", hasDiagram=" + (diagramXml != null && !diagramXml.isEmpty()) +
+                ", hasPseudocode=" + (pseudocode != null && !pseudocode.isEmpty()) +
                 '}';
     }
 }
