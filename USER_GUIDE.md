@@ -199,6 +199,14 @@ View basic statistics about your tasks.
     *   **Desktop Notifications:** OS-level (toast) notifications will appear for upcoming events (within 24 hours) and tasks due today or overdue.
     *   **Email Notifications:** If you have configured your email settings in `application.properties`, emails for these same reminders will also be sent to the `teacher.agenda.notification.email`.
     *   A summary dialog will inform you of how many notifications were processed.
+*   **Changing Application Language:**
+    *   The application supports multiple languages (currently English and Portuguese).
+    *   In the "Tools" tab, you will find a "**Select Language:**" dropdown menu.
+    *   Choose your preferred language from this list (e.g., "English", "Português (Brasil)").
+    *   Click the "**Save Language & Restart**" button.
+    *   An alert will inform you that "Language preference saved. Please restart the application for changes to take full effect."
+    *   Close and reopen TeacherAgenda. The interface will now be displayed in the language you selected.
+    *   The application will remember your language choice for future sessions.
 
 ## 4. Non-Functional Aspects
 

@@ -11,169 +11,168 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import org.controlsfx.control.MonthView?>
 <?import com.dlsc.mapsfx.MapView?>
-<?import javafx.embed.swing.SwingNode?> <!-- Added for JGraphX -->
+<?import javafx.embed.swing.SwingNode?>
 
 
 <TabPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teacheragenda.controller.MainWindowController"
-         prefHeight="800.0" prefWidth="1200.0"> <!-- Increased size -->
+         prefHeight="800.0" prefWidth="1200.0">
     <tabs>
-        <Tab text="Calendar" closable="false">
+        <Tab text="%tab.calendar.title" closable="false">
             <BorderPane>
                 <top>
                     <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
-                        <Button fx:id="prevMonthButton" onAction="#handlePrevMonth" text="&lt; Prev Month"/>
-                        <Label fx:id="currentMonthYearLabel" text="Month Year"/>
-                        <Button fx:id="nextMonthButton" onAction="#handleNextMonth" text="Next Month &gt;"/>
-                        <Button fx:id="todayButton" onAction="#handleToday" text="Today"/>
+                        <Button fx:id="prevMonthButton" onAction="#handlePrevMonth" text="%button.previousMonth"/>
+                        <Label fx:id="currentMonthYearLabel" text="%dynamic.label.monthYear.default"/>
+                        <Button fx:id="nextMonthButton" onAction="#handleNextMonth" text="%button.nextMonth"/>
+                        <Button fx:id="todayButton" onAction="#handleToday" text="%button.today"/>
                         <Separator orientation="VERTICAL" />
-                        <Button fx:id="importEventsButton" onAction="#handleImportEventsAction" text="Import Events (.ics)"/>
-                        <Button fx:id="exportEventsButton" onAction="#handleExportEventsAction" text="Export All Events (.ics)"/>
+                        <Button fx:id="importEventsButton" onAction="#handleImportEventsAction" text="%calendar.button.importEvents"/>
+                        <Button fx:id="exportEventsButton" onAction="#handleExportEventsAction" text="%calendar.button.exportEvents"/>
                     </HBox>
                 </top>
                 <center>
                     <VBox spacing="10" style="-fx-padding: 10;">
                         <MonthView fx:id="calendarMonthView" prefHeight="400"/>
-                        <Label text="Events for Selected Date:" style="-fx-font-weight: bold;"/>
+                        <Label text="%calendar.label.eventsForSelectedDate" style="-fx-font-weight: bold;"/>
                         <ListView fx:id="eventListViewForDate" prefHeight="150"/>
                     </VBox>
                 </center>
                 <right>
                     <VBox spacing="10" style="-fx-padding: 10;" prefWidth="380">
-                        <Label text="Manage Events" style="-fx-font-weight: bold;"/>
+                        <Label text="%calendar.label.manageEvents" style="-fx-font-weight: bold;"/>
                         <GridPane hgap="10" vgap="5">
-                            <Label text="Title:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Label text="%label.title" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                             <TextField fx:id="eventTitleField" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="220"/>
-                            <Label text="Start Date:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <Label text="%label.startDate" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                             <DatePicker fx:id="eventStartDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                            <Label text="Start Time (HH:MM):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="eventStartTimeField" promptText="HH:MM" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                            <Label text="End Date:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <Label text="%label.startTime" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="eventStartTimeField" promptText="%prompt.hhmm" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            <Label text="%label.endDate" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                             <DatePicker fx:id="eventEndDatePicker" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                            <Label text="End Time (HH:MM):" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextField fx:id="eventEndTimeField" promptText="HH:MM" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                            <Label text="Location:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                            <Label text="%label.endTime" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <TextField fx:id="eventEndTimeField" promptText="%prompt.hhmm" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                            <Label text="%label.location" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
                             <ComboBox fx:id="eventLocationComboBox" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="220"/>
-                            <Label text="Description:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                            <Label text="%label.description" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
                             <TextArea fx:id="eventDescriptionArea" prefHeight="80" GridPane.rowIndex="6" GridPane.columnIndex="1" wrapText="true"/>
                         </GridPane>
                         <HBox spacing="10" alignment="CENTER_RIGHT">
-                            <Button fx:id="addEventButton" onAction="#handleAddEvent" text="Add Event"/>
-                            <Button fx:id="updateEventButton" onAction="#handleUpdateEvent" text="Update Event" disable="true"/>
-                            <Button fx:id="deleteEventButton" onAction="#handleDeleteEvent" text="Delete Event" disable="true"/>
-                            <Button fx:id="clearEventFormButton" onAction="#handleClearEventForm" text="Clear"/>
+                            <Button fx:id="addEventButton" onAction="#handleAddEvent" text="%calendar.button.addEvent"/>
+                            <Button fx:id="updateEventButton" onAction="#handleUpdateEvent" text="%calendar.button.updateEvent" disable="true"/>
+                            <Button fx:id="deleteEventButton" onAction="#handleDeleteEvent" text="%calendar.button.deleteEvent" disable="true"/>
+                            <Button fx:id="clearEventFormButton" onAction="#handleClearEventForm" text="%button.clear"/>
                         </HBox>
                     </VBox>
                 </right>
             </BorderPane>
         </Tab>
 
-        <Tab text="Tasks" closable="false">
+        <Tab text="%tab.tasks.title" closable="false">
              <BorderPane>
                 <center>
                     <VBox spacing="10" style="-fx-padding: 10;">
-                        <Label text="Task List" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Label text="%tasks.label.taskList" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
                         <TableView fx:id="taskTableView" prefHeight="350">
                             <columns>
-                                <TableColumn fx:id="taskDescriptionColumn" text="Description" prefWidth="300"/>
-                                <TableColumn fx:id="taskDueDateColumn" text="Due Date" prefWidth="120"/>
-                                <TableColumn fx:id="taskPriorityColumn" text="Priority" prefWidth="100"/>
-                                <TableColumn fx:id="taskCompletedColumn" text="Completed" prefWidth="100"/>
-                                <TableColumn fx:id="taskCreationDateColumn" text="Created On" prefWidth="150"/>
+                                <TableColumn fx:id="taskDescriptionColumn" text="%tasks.column.description" prefWidth="300"/>
+                                <TableColumn fx:id="taskDueDateColumn" text="%tasks.column.dueDate" prefWidth="120"/>
+                                <TableColumn fx:id="taskPriorityColumn" text="%tasks.column.priority" prefWidth="100"/>
+                                <TableColumn fx:id="taskCompletedColumn" text="%tasks.column.completed" prefWidth="100"/>
+                                <TableColumn fx:id="taskCreationDateColumn" text="%tasks.column.createdOn" prefWidth="150"/>
                             </columns>
                         </TableView>
                         <HBox spacing="10" alignment="CENTER_LEFT">
-                             <Button fx:id="refreshTasksButton" onAction="#handleRefreshTasks" text="Refresh Tasks"/>
-                             <Button fx:id="markTaskCompleteButton" onAction="#handleMarkTaskComplete" text="Toggle Complete" disable="true"/>
-                             <Button fx:id="deleteTaskButton" onAction="#handleDeleteTask" text="Delete Task" disable="true"/>
+                             <Button fx:id="refreshTasksButton" onAction="#handleRefreshTasks" text="%tasks.button.refreshTasks"/>
+                             <Button fx:id="markTaskCompleteButton" onAction="#handleMarkTaskComplete" text="%tasks.button.toggleComplete" disable="true"/>
+                             <Button fx:id="deleteTaskButton" onAction="#handleDeleteTask" text="%tasks.button.deleteTask" disable="true"/>
                         </HBox>
                     </VBox>
                 </center>
                 <right>
                     <VBox spacing="10" style="-fx-padding: 10;" prefWidth="380">
-                        <Label text="Manage Task" style="-fx-font-weight: bold;"/>
+                        <Label text="%tasks.label.manageTask" style="-fx-font-weight: bold;"/>
                         <GridPane hgap="10" vgap="5">
-                            <Label text="Description:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Label text="%label.description" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                             <TextField fx:id="taskDescriptionField" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="220"/>
-                            <Label text="Due Date:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <Label text="%label.dueDate" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                             <DatePicker fx:id="taskDueDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                            <Label text="Priority:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Label text="%label.priority" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                             <ComboBox fx:id="taskPriorityComboBox" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="220">
                                 <items><FXCollections fx:factory="observableArrayList"><Priority fx:value="LOW"/><Priority fx:value="MEDIUM"/><Priority fx:value="HIGH"/></FXCollections></items>
                             </ComboBox>
                         </GridPane>
                         <HBox spacing="10" alignment="CENTER_RIGHT">
-                            <Button fx:id="addTaskButton" onAction="#handleAddTask" text="Add Task"/>
-                            <Button fx:id="updateTaskButton" onAction="#handleUpdateTask" text="Update Task" disable="true"/>
-                            <Button fx:id="clearTaskFormButton" onAction="#handleClearTaskForm" text="Clear Form"/>
+                            <Button fx:id="addTaskButton" onAction="#handleAddTask" text="%tasks.button.addTask"/>
+                            <Button fx:id="updateTaskButton" onAction="#handleUpdateTask" text="%tasks.button.updateTask" disable="true"/>
+                            <Button fx:id="clearTaskFormButton" onAction="#handleClearTaskForm" text="%tasks.button.clearForm"/>
                         </HBox>
                     </VBox>
                 </right>
             </BorderPane>
         </Tab>
 
-        <Tab text="Locations" closable="false">
+        <Tab text="%tab.locations.title" closable="false">
             <BorderPane>
                 <center>
                     <SplitPane dividerPositions="0.6" style="-fx-padding: 10;">
                         <VBox spacing="10" minWidth="400">
-                             <Label text="Map of Locations" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                             <Label text="%locations.label.mapOfLocations" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
                              <MapView fx:id="locationMapView" prefHeight="500" prefWidth="500"/>
                         </VBox>
                         <VBox spacing="10" minWidth="250">
-                            <Label text="Location List" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                            <Label text="%locations.label.locationList" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
                             <TableView fx:id="locationTableView" prefHeight="350">
                                 <columns>
-                                    <TableColumn fx:id="locationNameColumn" text="Name" prefWidth="150"/>
-                                    <TableColumn fx:id="locationAddressColumn" text="Address" prefWidth="200"/>
+                                    <TableColumn fx:id="locationNameColumn" text="%locations.column.name" prefWidth="150"/>
+                                    <TableColumn fx:id="locationAddressColumn" text="%locations.column.address" prefWidth="200"/>
                                 </columns>
                             </TableView>
                              <HBox spacing="10" alignment="CENTER_LEFT">
-                                 <Button fx:id="refreshLocationsButton" onAction="#handleRefreshLocations" text="Refresh Locations"/>
-                                 <Button fx:id="deleteLocationButton" onAction="#handleDeleteLocation" text="Delete Location" disable="true"/>
+                                 <Button fx:id="refreshLocationsButton" onAction="#handleRefreshLocations" text="%locations.button.refreshLocations"/>
+                                 <Button fx:id="deleteLocationButton" onAction="#handleDeleteLocation" text="%locations.button.deleteLocation" disable="true"/>
                             </HBox>
                         </VBox>
                     </SplitPane>
                 </center>
                 <right>
                     <VBox spacing="10" style="-fx-padding: 10;" prefWidth="350">
-                        <Label text="Manage Location" style="-fx-font-weight: bold;"/>
+                        <Label text="%locations.label.manageLocation" style="-fx-font-weight: bold;"/>
                         <GridPane hgap="10" vgap="5">
-                            <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Label text="%label.name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                             <TextField fx:id="locationNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="200"/>
-                            <Label text="Address:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <Label text="%label.address" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                             <TextField fx:id="locationAddressField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                            <Label text="Latitude:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="locationLatitudeField" promptText="e.g., 40.7128" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                            <Label text="Longitude:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <TextField fx:id="locationLongitudeField" promptText="e.g., -74.0060" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                            <Label text="Description:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <Label text="%label.latitude" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="locationLatitudeField" promptText="%prompt.egCoordinates" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            <Label text="%label.longitude" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <TextField fx:id="locationLongitudeField" promptText="%prompt.egCoordinates" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                            <Label text="%label.description" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
                             <TextArea fx:id="locationDescriptionArea" prefHeight="80" GridPane.rowIndex="4" GridPane.columnIndex="1" wrapText="true"/>
                         </GridPane>
                         <HBox spacing="10" alignment="CENTER_RIGHT">
-                            <Button fx:id="addLocationButton" onAction="#handleAddLocation" text="Add Location"/>
-                            <Button fx:id="updateLocationButton" onAction="#handleUpdateLocation" text="Update Location" disable="true"/>
-                            <Button fx:id="clearLocationFormButton" onAction="#handleClearLocationForm" text="Clear Form"/>
+                            <Button fx:id="addLocationButton" onAction="#handleAddLocation" text="%locations.button.addLocation"/>
+                            <Button fx:id="updateLocationButton" onAction="#handleUpdateLocation" text="%locations.button.updateLocation" disable="true"/>
+                            <Button fx:id="clearLocationFormButton" onAction="#handleClearLocationForm" text="%locations.button.clearForm"/>
                         </HBox>
                     </VBox>
                 </right>
             </BorderPane>
         </Tab>
 
-        <Tab text="Activities" closable="false">
+        <Tab text="%tab.activities.title" closable="false">
             <BorderPane>
                 <top>
                      <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 5;">
-                        <Label text="Activities List:" style="-fx-font-weight: bold;"/>
-                        <Button fx:id="refreshActivitiesButton" onAction="#handleRefreshActivities" text="Refresh Activities"/>
-                        <Button fx:id="deleteActivityButton" onAction="#handleDeleteActivity" text="Delete Selected Activity" disable="true"/>
+                        <Label text="%activities.label.activitiesList" style="-fx-font-weight: bold;"/>
+                        <Button fx:id="refreshActivitiesButton" onAction="#handleRefreshActivities" text="%activities.button.refreshActivities"/>
+                        <Button fx:id="deleteActivityButton" onAction="#handleDeleteActivity" text="%activities.button.deleteActivity" disable="true"/>
                     </HBox>
                 </top>
                 <left>
                     <TableView fx:id="activityTableView" prefWidth="350">
                         <columns>
-                            <TableColumn fx:id="activityNameColumn" text="Name" prefWidth="150"/>
-                            <TableColumn fx:id="activityScheduledTimeColumn" text="Scheduled" prefWidth="120"/>
-                            <!-- Other columns removed for brevity in this view, full details in form -->
+                            <TableColumn fx:id="activityNameColumn" text="%activities.column.name" prefWidth="150"/>
+                            <TableColumn fx:id="activityScheduledTimeColumn" text="%activities.column.scheduledTime" prefWidth="120"/>
                         </columns>
                         <BorderPane.margin><Insets right="5"/></BorderPane.margin>
                     </TableView>
@@ -181,30 +180,30 @@
                 <center>
                     <TabPane fx:id="activityDetailTabPane" tabClosingPolicy="UNAVAILABLE">
                         <tabs>
-                            <Tab text="Details & Tasks">
+                            <Tab text="%activities.subtab.detailsTasks">
                                 <ScrollPane fitToWidth="true" fitToHeight="true">
                                 <VBox spacing="10" style="-fx-padding: 10;" prefWidth="400">
-                                    <Label text="Manage Activity Details" style="-fx-font-weight: bold;"/>
+                                    <Label text="%activities.label.manageActivityDetails" style="-fx-font-weight: bold;"/>
                                     <GridPane hgap="10" vgap="5">
-                                        <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                        <Label text="%label.name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                                         <TextField fx:id="activityNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="250"/>
-                                        <Label text="Date:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                        <Label text="%label.startDate" GridPane.rowIndex="1" GridPane.columnIndex="0"/> <!-- Re-using 'Start Date' for 'Date' -->
                                         <DatePicker fx:id="activityDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                                        <Label text="Time (HH:MM):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                                        <TextField fx:id="activityTimeField" promptText="HH:MM" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                                        <Label text="Duration (min):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                                        <TextField fx:id="activityDurationField" promptText="e.g., 60" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                                        <Label text="Event:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                                        <Label text="%label.startTime" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                        <TextField fx:id="activityTimeField" promptText="%prompt.hhmm" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                                        <Label text="%label.durationMin" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                        <TextField fx:id="activityDurationField" promptText="%prompt.egDuration" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                        <Label text="%label.event" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
                                         <ComboBox fx:id="activityEventComboBox" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="250"/>
-                                        <Label text="Location:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                                        <Label text="%label.location" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
                                         <ComboBox fx:id="activityLocationComboBox" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="250"/>
-                                        <Label text="Description:" GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.valignment="TOP"/>
+                                        <Label text="%label.description" GridPane.rowIndex="6" GridPane.columnIndex="0" GridPane.valignment="TOP"/>
                                         <TextArea fx:id="activityDescriptionArea" prefHeight="60" GridPane.rowIndex="6" GridPane.columnIndex="1" wrapText="true"/>
                                     </GridPane>
-                                    <Label text="Assign Tasks:" style="-fx-font-weight: bold; -fx-padding: 5 0 0 0;"/>
+                                    <Label text="%activities.label.assignTasks" style="-fx-font-weight: bold; -fx-padding: 5 0 0 0;"/>
                                     <HBox spacing="5">
                                         <VBox spacing="5" HBox.hgrow="ALWAYS">
-                                            <Label text="Available Tasks:"/>
+                                            <Label text="%activities.label.availableTasks"/>
                                             <ListView fx:id="availableTasksListView" prefHeight="80" prefWidth="180"/>
                                         </VBox>
                                         <VBox alignment="CENTER" spacing="5">
@@ -212,29 +211,27 @@
                                             <Button fx:id="unassignTaskButton" text="&lt;&lt;" onAction="#handleUnassignTask"/>
                                         </VBox>
                                         <VBox spacing="5" HBox.hgrow="ALWAYS">
-                                            <Label text="Selected Tasks:"/>
+                                            <Label text="%activities.label.selectedTasks"/>
                                             <ListView fx:id="selectedTasksListView" prefHeight="80" prefWidth="180"/>
                                         </VBox>
                                     </HBox>
                                     <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
-                                        <Button fx:id="addActivityButton" onAction="#handleAddActivity" text="Add/Save Activity Details"/>
-                                        <!-- Update button might be redundant if Add serves as Save for selected -->
-                                        <!-- <Button fx:id="updateActivityButton" onAction="#handleUpdateActivity" text="Save Details" disable="true"/> -->
-                                        <Button fx:id="clearActivityFormButton" onAction="#handleClearActivityForm" text="New/Clear Form"/>
+                                        <Button fx:id="addActivityButton" onAction="#handleAddActivity" text="%activities.button.addSaveActivity"/>
+                                        <Button fx:id="clearActivityFormButton" onAction="#handleClearActivityForm" text="%activities.button.clearForm"/>
                                     </HBox>
                                 </VBox>
                                 </ScrollPane>
                             </Tab>
-                            <Tab text="Diagram">
+                            <Tab text="%activities.subtab.diagram">
                                 <BorderPane>
                                     <top>
                                         <ToolBar>
-                                            <Button fx:id="addBoxButton" text="Add Box" onAction="#handleAddBoxToDiagram"/>
-                                            <Button fx:id="addCircleButton" text="Add Circle" onAction="#handleAddCircleToDiagram"/>
-                                            <Button fx:id="addEdgeButton" text="Add Edge" onAction="#handleAddEdgeToDiagram"/>
+                                            <Button fx:id="addBoxButton" text="%activities.diagram.addBox" onAction="#handleAddBoxToDiagram"/>
+                                            <Button fx:id="addCircleButton" text="%activities.diagram.addCircle" onAction="#handleAddCircleToDiagram"/>
+                                            <Button fx:id="addEdgeButton" text="%activities.diagram.addEdge" onAction="#handleAddEdgeToDiagram"/>
                                             <Separator/>
-                                            <Button fx:id="saveDiagramButton" text="Save Diagram" onAction="#handleSaveDiagram"/>
-                                            <Button fx:id="loadDiagramButton" text="Load Diagram" onAction="#handleLoadDiagram"/>
+                                            <Button fx:id="saveDiagramButton" text="%activities.diagram.saveDiagram" onAction="#handleSaveDiagram"/>
+                                            <Button fx:id="loadDiagramButton" text="%activities.diagram.loadDiagram" onAction="#handleLoadDiagram"/>
                                         </ToolBar>
                                     </top>
                                     <center>
@@ -242,15 +239,15 @@
                                     </center>
                                 </BorderPane>
                             </Tab>
-                            <Tab text="Pseudocode">
+                            <Tab text="%activities.subtab.pseudocode">
                                  <BorderPane>
                                      <center>
                                         <TextArea fx:id="pseudocodeTextArea" prefHeight="400" wrapText="true"/>
                                      </center>
                                      <bottom>
                                          <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10;">
-                                             <Button fx:id="savePseudocodeButton" text="Save Pseudocode" onAction="#handleSavePseudocode"/>
-                                             <Button fx:id="loadPseudocodeButton" text="Load Pseudocode" onAction="#handleLoadPseudocode"/>
+                                             <Button fx:id="savePseudocodeButton" text="%activities.pseudocode.save" onAction="#handleSavePseudocode"/>
+                                             <Button fx:id="loadPseudocodeButton" text="%activities.pseudocode.load" onAction="#handleLoadPseudocode"/>
                                          </HBox>
                                      </bottom>
                                  </BorderPane>
@@ -261,107 +258,116 @@
             </BorderPane>
         </Tab>
 
-        <Tab text="Materials" closable="false">
+        <Tab text="%tab.materials.title" closable="false">
             <BorderPane>
                 <center>
                     <VBox spacing="10" style="-fx-padding: 10;">
-                        <Label text="Teaching Materials" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Label text="%materials.label.teachingMaterials" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
                         <TableView fx:id="materialTableView" prefHeight="400">
                             <columns>
-                                <TableColumn fx:id="materialNameColumn" text="Name" prefWidth="180"/> <!-- Adjusted width -->
-                                <TableColumn fx:id="materialFileTypeColumn" text="Type" prefWidth="70"/> <!-- New Column -->
-                                <TableColumn fx:id="materialCategoryColumn" text="Category" prefWidth="100"/>
-                                <TableColumn fx:id="materialDescriptionColumn" text="Description" prefWidth="220"/> <!-- Adjusted width -->
-                                <TableColumn fx:id="materialUploadDateColumn" text="Upload Date" prefWidth="140"/> <!-- Adjusted width -->
-                                <TableColumn fx:id="materialFilePathColumn" text="File Path" prefWidth="240"/> <!-- Adjusted width -->
+                                <TableColumn fx:id="materialNameColumn" text="%materials.column.name" prefWidth="180"/>
+                                <TableColumn fx:id="materialFileTypeColumn" text="%materials.column.type" prefWidth="70"/>
+                                <TableColumn fx:id="materialCategoryColumn" text="%materials.column.category" prefWidth="100"/>
+                                <TableColumn fx:id="materialDescriptionColumn" text="%materials.column.description" prefWidth="220"/>
+                                <TableColumn fx:id="materialUploadDateColumn" text="%materials.column.uploadDate" prefWidth="140"/>
+                                <TableColumn fx:id="materialFilePathColumn" text="%materials.column.filePath" prefWidth="240"/>
                             </columns>
                         </TableView>
                         <HBox spacing="10" alignment="CENTER_LEFT">
-                             <Button fx:id="refreshMaterialsButton" onAction="#handleRefreshMaterials" text="Refresh List"/>
-                             <Button fx:id="openMaterialButton" onAction="#handleOpenMaterial" text="Open Material" disable="true"/>
-                             <Button fx:id="deleteMaterialButton" onAction="#handleDeleteMaterial" text="Delete Info*" disable="true"/> 
-                             <!-- Added asterisk to "Delete Info" button text for clarity -->
+                             <Button fx:id="refreshMaterialsButton" onAction="#handleRefreshMaterials" text="%materials.button.refreshList"/>
+                             <Button fx:id="openMaterialButton" onAction="#handleOpenMaterial" text="%materials.button.openMaterial" disable="true"/>
+                             <Button fx:id="deleteMaterialButton" onAction="#handleDeleteMaterial" text="%materials.button.deleteInfo" disable="true"/>
                         </HBox>
                     </VBox>
                 </center>
                 <right>
                     <VBox spacing="10" style="-fx-padding: 10;" prefWidth="400">
-                        <Label text="Manage Material" style="-fx-font-weight: bold;"/>
+                        <Label text="%materials.label.manageMaterial" style="-fx-font-weight: bold;"/>
                         <GridPane hgap="10" vgap="5">
-                            <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Label text="%label.name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                             <TextField fx:id="materialNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="250"/>
-                            <Label text="Category:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="materialCategoryField" promptText="e.g., Handout, Presentation" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                            <Label text="Description:" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.valignment="TOP"/>
+                            <Label text="%label.category" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="materialCategoryField" promptText="%prompt.egHandout" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <Label text="%label.description" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.valignment="TOP"/>
                             <TextArea fx:id="materialDescriptionArea" prefHeight="80" GridPane.rowIndex="2" GridPane.columnIndex="1" wrapText="true"/>
-                            <Label text="File:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <Label text="%label.filePath" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                             <HBox spacing="5" GridPane.rowIndex="3" GridPane.columnIndex="1" alignment="CENTER_LEFT">
-                                <TextField fx:id="materialFilePathField" editable="false" prefWidth="180" promptText="Click Browse..."/>
-                                <Button fx:id="browseMaterialFileButton" text="Browse..." onAction="#handleBrowseMaterialFile"/>
+                                <TextField fx:id="materialFilePathField" editable="false" prefWidth="180" promptText="%prompt.clickBrowse"/>
+                                <Button fx:id="browseMaterialFileButton" text="%button.browse" onAction="#handleBrowseMaterialFile"/>
                             </HBox>
                         </GridPane>
                         <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
-                            <Button fx:id="addMaterialButton" onAction="#handleAddMaterial" text="Add Material"/>
-                            <Button fx:id="updateMaterialButton" onAction="#handleUpdateMaterial" text="Update Info" disable="true"/>
-                            <Button fx:id="clearMaterialFormButton" onAction="#handleClearMaterialForm" text="Clear Form"/>
+                            <Button fx:id="addMaterialButton" onAction="#handleAddMaterial" text="%materials.button.addMaterial"/>
+                            <Button fx:id="updateMaterialButton" onAction="#handleUpdateMaterial" text="%materials.button.updateInfo" disable="true"/>
+                            <Button fx:id="clearMaterialFormButton" onAction="#handleClearMaterialForm" text="%tasks.button.clearForm"/> <!-- Re-used key -->
                         </HBox>
                     </VBox>
                 </right>
             </BorderPane>
         </Tab>
 
-        <Tab text="Quick Notes" closable="false">
+        <Tab text="%tab.quicknotes.title" closable="false">
             <BorderPane>
                 <left>
                     <VBox spacing="10" style="-fx-padding: 10;" prefWidth="250">
-                        <Label text="Notes" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <Label text="%quicknotes.label.notes" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
                         <ListView fx:id="quickNoteListView" prefHeight="500"/>
                         <HBox spacing="10" alignment="CENTER_LEFT">
-                            <Button fx:id="refreshQuickNotesButton" text="Refresh" onAction="#handleRefreshQuickNotes"/>
+                            <Button fx:id="refreshQuickNotesButton" text="%quicknotes.button.refresh" onAction="#handleRefreshQuickNotes"/>
                         </HBox>
                     </VBox>
                 </left>
                 <center>
                     <VBox spacing="10" style="-fx-padding: 10;">
-                        <Label text="Note Content" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-                        <TextArea fx:id="quickNoteContentArea" prefHeight="500" prefWidth="400" wrapText="true" promptText="Select a note to view/edit, or start typing for a new note."/>
+                        <Label text="%quicknotes.label.noteContent" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                        <TextArea fx:id="quickNoteContentArea" prefHeight="500" prefWidth="400" wrapText="true" promptText="%prompt.selectNoteOrCreate"/>
                         <HBox spacing="10" alignment="CENTER_RIGHT">
-                            <Button fx:id="saveQuickNoteButton" text="Save Note" onAction="#handleSaveQuickNote"/>
-                            <Button fx:id="deleteQuickNoteButton" text="Delete Note" onAction="#handleDeleteQuickNote" disable="true"/>
-                            <Button fx:id="clearQuickNoteFormButton" text="New/Clear" onAction="#handleClearQuickNoteForm"/>
+                            <Button fx:id="saveQuickNoteButton" text="%quicknotes.button.saveNote" onAction="#handleSaveQuickNote"/>
+                            <Button fx:id="deleteQuickNoteButton" text="%quicknotes.button.deleteNote" onAction="#handleDeleteQuickNote" disable="true"/>
+                            <Button fx:id="clearQuickNoteFormButton" text="%quicknotes.button.newClear" onAction="#handleClearQuickNoteForm"/>
                         </HBox>
-                         <Label fx:id="quickNoteTimestampLabel" text="Created: N/A | Modified: N/A" style="-fx-font-style: italic; -fx-font-size: 10px;"/>
+                         <Label fx:id="quickNoteTimestampLabel" text="%dynamic.label.quickNoteTimestamps.na" style="-fx-font-style: italic; -fx-font-size: 10px;"/>
                     </VBox>
                 </center>
             </BorderPane>
         </Tab>
 
-        <Tab text="Statistics" closable="false">
+        <Tab text="%tab.statistics.title" closable="false">
             <VBox spacing="15" alignment="TOP_CENTER" style="-fx-padding: 20;">
-                <Label text="Task Statistics" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Label text="%statistics.label.taskStatistics" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
                 <GridPane hgap="10" vgap="8" alignment="CENTER">
-                    <Label text="Total Tasks:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="totalTasksLabel" text="N/A" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                    <Label text="Completed Tasks:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="completedTasksLabel" text="N/A" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                    <Label text="Pending Tasks:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
-                    <Label fx:id="pendingTasksLabel" text="N/A" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <Label text="%statistics.label.totalTasks" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="totalTasksLabel" text="%statistics.label.na" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label text="%statistics.label.completedTasks" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="completedTasksLabel" text="%statistics.label.na" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <Label text="%statistics.label.pendingTasks" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                    <Label fx:id="pendingTasksLabel" text="%statistics.label.na" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
                 </GridPane>
-                <PieChart fx:id="taskStatusPieChart" title="Task Status Overview" prefHeight="300" prefWidth="400"/>
-                <BarChart fx:id="taskPriorityBarChart" title="Tasks by Priority" prefHeight="300" prefWidth="400" visible="false">
-                     <xAxis><CategoryAxis fx:id="priorityCategoryAxis" label="Priority"/></xAxis>
-                     <yAxis><NumberAxis fx:id="priorityNumberAxis" label="Number of Tasks"/></yAxis>
+                <PieChart fx:id="taskStatusPieChart" title="%statistics.piechart.title" prefHeight="300" prefWidth="400"/>
+                <BarChart fx:id="taskPriorityBarChart" title="%statistics.barchart.title" prefHeight="300" prefWidth="400" visible="false">
+                     <xAxis><CategoryAxis fx:id="priorityCategoryAxis" label="%statistics.barchart.xaxis"/></xAxis>
+                     <yAxis><NumberAxis fx:id="priorityNumberAxis" label="%statistics.barchart.yaxis"/></yAxis>
                 </BarChart>
-                <Button fx:id="refreshStatisticsButton" text="Refresh Statistics" onAction="#handleRefreshStatistics"/>
+                <Button fx:id="refreshStatisticsButton" text="%statistics.button.refresh" onAction="#handleRefreshStatistics"/>
             </VBox>
         </Tab>
 
-        <Tab text="Tools" closable="false">
+        <Tab text="%tab.tools.title" closable="false">
             <VBox spacing="20" alignment="TOP_CENTER" style="-fx-padding: 20;">
-                <Label text="Application Tools" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-                <Button fx:id="sendRemindersButton" text="Send Reminders Now" onAction="#handleSendReminders" prefHeight="40" prefWidth="200"/>
-                <Label text="Note: Ensure email settings are correctly configured in application.properties."
+                <Label text="%tools.label.applicationTools" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Button fx:id="sendRemindersButton" text="%tools.button.sendReminders" onAction="#handleSendReminders" prefHeight="40" prefWidth="200"/>
+                <Label text="%tools.label.emailConfigNote"
                        wrapText="true" style="-fx-font-style: italic;"/>
+
+                <Separator style="-fx-padding: 10 0 0 0;"/>
+
+                <Label text="%label.language.select" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10 0 0 0;"/>
+                <HBox spacing="10" alignment="CENTER" prefWidth="300">
+                    <ComboBox fx:id="languageComboBox" prefWidth="200"/>
+                    <Button fx:id="saveLanguageButton" text="%button.save.language" onAction="#handleSaveLanguageAction"/>
+                </HBox>
+                <Label text="%tooltip.button.saveLanguage" style="-fx-font-style: italic; -fx-font-size: 10px;" wrapText="true" maxWidth="300"/>
+
             </VBox>
         </Tab>
 

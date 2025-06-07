@@ -153,7 +153,7 @@ public class NotificationService {
         logger.info("Generated {} task reminder contents.", notifications.size());
         return notifications;
     }
-    
+
     // The actual email sending can still be a utility of this service if desired,
     // or entirely managed by the controller based on the DesktopNotification content.
     public boolean sendEmailNotification(DesktopNotification notification) {

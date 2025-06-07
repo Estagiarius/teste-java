@@ -16,17 +16,17 @@ public class Activity {
     @Column(nullable = false)
     private String name;
 
-    @Lob 
+    @Lob
     private String description;
 
     private LocalDateTime scheduledTime;
     private Integer duration; // in minutes
 
-    @ManyToOne(fetch = FetchType.EAGER) 
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id")
     private Event relatedEvent;
 
-    @ManyToMany(fetch = FetchType.LAZY) 
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "activity_task",
         joinColumns = @JoinColumn(name = "activity_id"),
@@ -34,7 +34,7 @@ public class Activity {
     )
     private Set<Task> relatedTasks = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER) 
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id")
     private Location assignedLocation;
 
@@ -139,12 +139,12 @@ public class Activity {
     // Helper methods for managing tasks
     public void addTask(Task task) {
         this.relatedTasks.add(task);
-        task.getActivitiesInternal().add(this); 
+        task.getActivitiesInternal().add(this);
     }
 
     public void removeTask(Task task) {
         this.relatedTasks.remove(task);
-        task.getActivitiesInternal().remove(this); 
+        task.getActivitiesInternal().remove(this);
     }
 
 
