@@ -59,7 +59,7 @@ public class ICalService {
 
                 DateTime start = new DateTime(java.util.Date.from(startLdt.atZone(ZoneId.systemDefault()).toInstant()));
                 DateTime end = new DateTime(java.util.Date.from(endLdt.atZone(ZoneId.systemDefault()).toInstant()));
-                
+
                 VEvent vEvent = new VEvent(start, end, appEvent.getTitle());
                 vEvent.getProperties().add(new Uid(UUID.randomUUID().toString()));
 
@@ -146,7 +146,7 @@ public class ICalService {
                          logger.warn("Skipping VEvent without sufficient end time information: {}", summary.map(Summary::getValue).orElse("N/A"));
                         continue; // Skip if end time cannot be determined
                     }
-                    
+
                     // Validate that EndTime is after StartTime
                     if (appEvent.getEndTime().isBefore(appEvent.getStartTime())) {
                         logger.warn("Skipping VEvent where end time is before start time: {}", appEvent.getTitle());
@@ -161,7 +161,7 @@ public class ICalService {
                     // Location
                     Optional<Location> location = vEvent.getProperty(Property.LOCATION);
                     location.ifPresent(l -> appEvent.setLocation(l.getValue()));
-                    
+
                     // UID - Not storing in model for now, but can be logged or used for advanced duplicate checks
                     Optional<Uid> uid = vEvent.getProperty(Property.UID);
                     uid.ifPresent(u -> logger.debug("Imported VEvent with UID: {}", u.getValue()));

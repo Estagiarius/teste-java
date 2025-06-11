@@ -53,24 +53,46 @@ teacher.agenda.notification.email=your_teacher_email_address@example.com
 ## 3. Core Features (Tab by Tab)
 
 ### Calendar Tab
-*   **Viewing Events:** The main area displays a `MonthView` calendar.
-*   **Navigating Months:** Use the "**< Prev Month**" and "**Next Month >**" buttons to change the displayed month. Click "**Today**" to jump to the current month and select today's date. The current month and year are displayed at the top.
-*   **Event Markers:** Days with one or more events are visually marked in the `MonthView`. Hovering over such a day will show a tooltip indicating the number of events.
-*   **Viewing Events for a Date:** Click on a date in the `MonthView`. Any events scheduled for that day will appear in the list below the calendar titled "Events for Selected Date:".
-*   **Adding an Event:**
-    1.  Select the desired start date in the `MonthView` (this pre-fills the date fields in the form).
-    2.  Fill in the "Title", "Start Time (HH:MM)", "End Date", "End Time (HH:MM)", "Location" (select from dropdown), and "Description" in the "Manage Events" form on the right.
-    3.  Click "**Add Event**".
-*   **Editing an Event:**
-    1.  Select a date in `MonthView`.
-    2.  Select the event from the "Events for Selected Date:" list. The form will populate with its details.
-    3.  Modify the details in the form.
-    4.  Click "**Update Event**".
-*   **Deleting an Event:**
-    1.  Select a date in `MonthView`.
-    2.  Select the event from the "Events for Selected Date:" list.
-    3.  Click "**Delete Event**". A confirmation dialog will appear.
-*   **Clearing the Form:** Click "**Clear**" to reset the form fields. If a date is selected on the calendar, the date fields will remain pre-filled for that date.
+The Calendar tab provides multiple ways to view and manage your events: Month, Week, and Day views. The event editing form is always accessible on the right side of the selected view. Any changes made (Create, Update, Delete) are reflected across all views.
+
+*   **Switching Calendar Views:**
+    *   At the top of the Calendar tab (below the main month navigation), you'll find toggle buttons: "**Month**", "**Week**", and "**Day**".
+    *   Click the desired button to switch to that view. Only one view (Month, Week, or Day) is displayed at a time.
+    *   The "**Today**" button in the main month navigation will try to navigate the currently active view (Month, Week, or Day) to show today's date or the period containing today.
+
+*   **Month View:**
+    *   **Viewing Events:** This is the default view and displays a traditional monthly calendar (using ControlsFX `MonthView`).
+    *   **Navigating Months:** Use the "**< Prev Month**" and "**Next Month >**" buttons to change the displayed month. The current month and year are displayed at the top.
+    *   **Event Markers:** Days with one or more events are visually marked. Hovering over such a day will show a tooltip indicating the number of events.
+    *   **Viewing Events for a Specific Date:** Click on a date in the `MonthView`. Any events scheduled for that day will appear in the list below the calendar titled "Events for Selected Date:". Clicking an event in this list populates the "Manage Events" form on the right.
+    *   **Creating an Event:** Select the desired start date in the `MonthView` (this pre-fills the date fields in the form), then use the "Manage Events" form.
+
+*   **Week View:**
+    *   **Layout:** Displays a 7-day grid for the selected week. Each day column has a header showing the day name and date (e.g., "Mon 21/10").
+    *   **Navigation:**
+        *   Use the "**Previous Week**" and "**Next Week**" buttons (located above the week grid) to navigate.
+        *   The `currentWeekRangeLabel` (e.g., "October 21 - 27, 2024") displays the currently viewed week.
+    *   **Event Display:** Events for each day are listed as labels within that day's column, typically showing the start time and event title.
+    *   **Interacting with Events:**
+        *   **View/Edit/Delete:** Click on an event label within a day column. This will populate the "Manage Events" form on the right with the event's details, where you can edit or delete it.
+        *   **Create New Event:** Double-click on an empty area within a specific day's column. The "Manage Events" form will clear, and the start/end date pickers will be pre-filled with the date of that day. A default start time (e.g., 09:00) will also be set. You can then fill in the rest of the event details and save.
+
+*   **Day View:**
+    *   **Layout:** Displays a vertical timeline for a single selected day, with hourly slots marked.
+    *   **Navigation:**
+        *   Use the "**Previous Day**" and "**Next Day**" buttons (located above the timeline) to navigate.
+        *   The `currentDayLabel` (e.g., "October 21, 2024") displays the currently viewed date.
+    *   **Event Display:** Events are shown as colored blocks on the timeline, positioned and sized according to their start time and duration. The event title and time are displayed within these blocks.
+    *   **Interacting with Events:**
+        *   **View/Edit/Delete:** Click on an event block on the timeline. This will populate the "Manage Events" form on the right with the event's details for editing or deletion.
+        *   **Create New Event:** Double-click on an empty time slot on the timeline. The "Manage Events" form will clear, and the start/end date pickers and start time field will be pre-filled based on where you clicked. You can then complete the event details and save.
+
+*   **Event Form ("Manage Events" - Common to all views):**
+    *   **Adding an Event:** After pre-filling from a view (or manually setting dates/times), fill in the "Title", "Start Time (HH:MM)", "End Date", "End Time (HH:MM)", "Location" (select from dropdown), and "Description". Click the "**Add Event**" button. If you had selected an existing event to populate the form, this button's text might change to "**Update Event**" (or similar, based on i18n key `button.update`), and clicking it will save changes to that event.
+    *   **Editing an Event:** When an event is selected (from Month view's list, or by clicking on it in Week/Day view), its details appear in the form. Modify them and click the save/update button.
+    *   **Deleting an Event:** When an event's details are in the form, click "**Delete Event**". A confirmation dialog will appear.
+    *   **Clearing the Form:** Click "**Clear**" to reset the form fields.
+
 *   **Exporting Events to iCalendar (.ics):**
     *   **Purpose:** To share your events with other calendar applications (like Google Calendar, Outlook Calendar, Apple Calendar) or to create a backup of your event schedule.
     *   **How to use:**
@@ -199,6 +221,14 @@ View basic statistics about your tasks.
     *   **Desktop Notifications:** OS-level (toast) notifications will appear for upcoming events (within 24 hours) and tasks due today or overdue.
     *   **Email Notifications:** If you have configured your email settings in `application.properties`, emails for these same reminders will also be sent to the `teacher.agenda.notification.email`.
     *   A summary dialog will inform you of how many notifications were processed.
+*   **Changing Application Language:**
+    *   The application supports multiple languages (currently English and Portuguese).
+    *   In the "Tools" tab, you will find a "**Select Language:**" dropdown menu.
+    *   Choose your preferred language from this list (e.g., "English", "Português (Brasil)").
+    *   Click the "**Save Language & Restart**" button.
+    *   An alert will inform you that "Language preference saved. Please restart the application for changes to take full effect."
+    *   Close and reopen TeacherAgenda. The interface will now be displayed in the language you selected.
+    *   The application will remember your language choice for future sessions.
 
 ## 4. Non-Functional Aspects
 
