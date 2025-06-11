@@ -20,22 +20,72 @@
         <Tab text="%tab.calendar.title" closable="false">
             <BorderPane>
                 <top>
-                    <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
-                        <Button fx:id="prevMonthButton" onAction="#handlePrevMonth" text="%button.previousMonth"/>
-                        <Label fx:id="currentMonthYearLabel" text="%dynamic.label.monthYear.default"/>
-                        <Button fx:id="nextMonthButton" onAction="#handleNextMonth" text="%button.nextMonth"/>
-                        <Button fx:id="todayButton" onAction="#handleToday" text="%button.today"/>
-                        <Separator orientation="VERTICAL" />
-                        <Button fx:id="importEventsButton" onAction="#handleImportEventsAction" text="%calendar.button.importEvents"/>
-                        <Button fx:id="exportEventsButton" onAction="#handleExportEventsAction" text="%calendar.button.exportEvents"/>
-                    </HBox>
+                    <VBox>
+                        <HBox alignment="CENTER" spacing="10" style="-fx-padding: 5;">
+                            <Button fx:id="prevMonthButton" onAction="#handlePrevMonth" text="%button.previousMonth"/>
+                            <Label fx:id="currentMonthYearLabel" text="%dynamic.label.monthYear.default"/>
+                            <Button fx:id="nextMonthButton" onAction="#handleNextMonth" text="%button.nextMonth"/>
+                            <Button fx:id="todayButton" onAction="#handleToday" text="%button.today"/>
+                            <Separator orientation="VERTICAL" />
+                            <Button fx:id="importEventsButton" onAction="#handleImportEventsAction" text="%calendar.button.importEvents"/>
+                            <Button fx:id="exportEventsButton" onAction="#handleExportEventsAction" text="%calendar.button.exportEvents"/>
+                        </HBox>
+                        <ToolBar style="-fx-padding: 0 0 5 0;">
+                            <items>
+                                <ToggleButton fx:id="monthViewToggle" text="%calendar.view.month" selected="true"/>
+                                <ToggleButton fx:id="weekViewToggle" text="%calendar.view.week"/>
+                                <ToggleButton fx:id="dayViewToggle" text="%calendar.view.day"/>
+                            </items>
+                        </ToolBar>
+                    </VBox>
                 </top>
                 <center>
-                    <VBox spacing="10" style="-fx-padding: 10;">
-                        <MonthView fx:id="calendarMonthView" prefHeight="400"/>
-                        <Label text="%calendar.label.eventsForSelectedDate" style="-fx-font-weight: bold;"/>
-                        <ListView fx:id="eventListViewForDate" prefHeight="150"/>
-                    </VBox>
+                    <StackPane fx:id="calendarViewStack" style="-fx-padding: 5;">
+                        <!-- Month View Container -->
+                        <VBox fx:id="monthViewContainer" spacing="10" visible="true" managed="true">
+                            <MonthView fx:id="calendarMonthView" prefHeight="400"/>
+                            <Label text="%calendar.label.eventsForSelectedDate" style="-fx-font-weight: bold;"/>
+                            <ListView fx:id="eventListViewForDate" prefHeight="150"/>
+                        </VBox>
+
+                        <!-- Week View Container -->
+                        <BorderPane fx:id="weekViewPane" visible="false" managed="false">
+                            <top>
+                                <HBox alignment="CENTER" spacing="10" style="-fx-padding: 5;">
+                                    <Button fx:id="prevWeekButton" text="%calendar.button.prevWeek" onAction="#handlePrevWeek"/>
+                                    <Label fx:id="currentWeekRangeLabel" text="%calendar.label.currentWeekRange"/>
+                                    <Button fx:id="nextWeekButton" text="%calendar.button.nextWeek" onAction="#handleNextWeek"/>
+                                </HBox>
+                            </top>
+                            <center>
+                                <ScrollPane fx:id="weekScrollPane" fitToWidth="true" prefHeight="500">
+                                    <GridPane fx:id="weekGridPane" hgap="2" vgap="2" style="-fx-border-color: lightgray;">
+                                        <!-- Columns for days will be added here by controller or more FXML -->
+                                        <!-- Header row for day names/dates -->
+                                        <!-- Day columns (VBox) for events -->
+                                    </GridPane>
+                                </ScrollPane>
+                            </center>
+                        </BorderPane>
+
+                        <!-- Day View Container -->
+                        <BorderPane fx:id="dayViewPane" visible="false" managed="false">
+                            <top>
+                                <HBox alignment="CENTER" spacing="10" style="-fx-padding: 5;">
+                                    <Button fx:id="prevDayButton" text="%calendar.button.prevDay" onAction="#handlePrevDay"/>
+                                    <Label fx:id="currentDayLabel" text="%calendar.label.currentDay"/>
+                                    <Button fx:id="nextDayButton" text="%calendar.button.nextDay" onAction="#handleNextDay"/>
+                                </HBox>
+                            </top>
+                            <center>
+                                <ScrollPane fx:id="dayScrollPane" fitToWidth="true" prefHeight="500">
+                                    <Pane fx:id="dayTimelineContainerPane">
+                                        <!-- Time gutter and event panes will be added here by controller -->
+                                    </Pane>
+                                </ScrollPane>
+                            </center>
+                        </BorderPane>
+                    </StackPane>
                 </center>
                 <right>
                     <VBox spacing="10" style="-fx-padding: 10;" prefWidth="380">

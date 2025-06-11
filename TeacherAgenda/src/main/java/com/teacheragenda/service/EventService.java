@@ -42,10 +42,13 @@ public class EventService {
         return eventRepository.findAllByStartTimeBetween(startTime, endTime);
     }
 
-    // Additional methods can be added here as needed, for example:
-    // public List<Event> findEventsForDay(LocalDate date) {
-    //     LocalDateTime startTime = date.atStartOfDay();
-    //     LocalDateTime endTime = date.atTime(23, 59, 59);
-    //     return eventRepository.findAllByStartTimeBetween(startTime, endTime);
-    // }
+    public List<Event> findEventsByDay(LocalDate date) {
+        LocalDateTime startTime = date.atStartOfDay();
+        LocalDateTime endTime = date.atTime(23, 59, 59, 999_999_999); // End of the day
+        return eventRepository.findAllByStartTimeBetween(startTime, endTime);
+    }
+
+    public List<Event> findEventsBetween(LocalDateTime weekStart, LocalDateTime weekEnd) {
+        return eventRepository.findAllByStartTimeBetween(weekStart, weekEnd);
+    }
 }
